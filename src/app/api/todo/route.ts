@@ -1,8 +1,7 @@
 import prisma from "@/lib/prisma/prisma";
-import { NextResponse } from "next/server";
-import { todo } from "node:test";
+import { NextRequest, NextResponse } from "next/server";
 
-export const GET = async () => {
+export const GET = async (req: NextRequest) => {
   const todoList = await prisma.todo.findMany();
   return NextResponse.json(todoList);
 };

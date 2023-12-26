@@ -14,21 +14,18 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { formSchema, inputType } from "@/types/todo";
-import { postTodo } from "../actions/useTodo";
-import { Todo } from "@prisma/client";
 import { useTodo } from "../hooks/useTodo";
 
 function CreateTodo() {
   const form = useForm<inputType>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: "",
       content: "",
     },
   });
   const { postTodo } = useTodo();
 
-  const onSubmit = (data: Pick<Todo, "title" | "content">) => {
+  const onSubmit = (data: inputType) => {
     postTodo(data);
   };
   return (
@@ -36,25 +33,15 @@ function CreateTodo() {
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <FormField
           control={form.control}
-          name="title"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>タイトル</FormLabel>
-              <FormControl>
-                <Input placeholder="タイトル" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
           name="content"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>内容</FormLabel>
+              <FormLabel>todo</FormLabel>
               <FormControl>
-                <Input placeholder="やること" {...field} />
+                <Input
+                  placeholder="やること"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>

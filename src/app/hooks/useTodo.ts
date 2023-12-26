@@ -4,7 +4,6 @@ import {
   useMutation,
   useQuery,
   useQueryClient,
-  useSuspenseQuery,
 } from "@tanstack/react-query";
 import { deleteTodo, postTodo } from "../actions/useTodo";
 
@@ -13,7 +12,7 @@ export const useTodo = () => {
   const queryClient = useQueryClient();
   const { data, isPending } = useQuery({
     queryKey,
-    queryFn: () => {
+    queryFn: async () => {
       return fetcher<Todo[]>(`${process.env.NEXT_PUBLIC_BASE_URL}/api/todo`, { cache: "no-store" });
     },
   });

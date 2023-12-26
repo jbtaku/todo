@@ -9,6 +9,7 @@ export const uploadS3 = async (file: File, name: string) => {
     accessKeyId as string,
     secretAccessKey as string
   );
+  console.log(file)
 
   try {
     const parallelUploads3 = new Upload({
@@ -20,9 +21,15 @@ export const uploadS3 = async (file: File, name: string) => {
         Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME as string,
         Key: name,
         Body: file,
-        ContentType: file.type
+        ContentType: file.type,
+        ACL: "public-read" 
       },
-      leavePartsOnError: false,
+      queueSize: 10,
+      partSize: 1024 * 1024 * 5,
+    });
+
+    parallelUploads3.on("httpUploadProgress", (progress) => {
+      console.log(progress);
     });
 
     await parallelUploads3.done();

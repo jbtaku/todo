@@ -5,13 +5,12 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { useTodo } from "../hooks/useTodo";
 
-type Props = Pick<Todo, "id" | "title" | "content">;
+type Props = Pick<Todo, "id" | "content">;
 
-function TodoItem({ id, title, content }: Props) {
+function TodoItem({ id, content }: Props) {
   const { deleteTodo } = useTodo();
   return (
     <div className="flex space-x-4 my-1">
-      <p>{title}</p>
       <p>{content}</p>
       <Button onClick={() => deleteTodo(id)}>削除</Button>
     </div>
