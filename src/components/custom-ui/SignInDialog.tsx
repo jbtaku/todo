@@ -33,7 +33,7 @@ function SignInDialog({ variant, className }: Props) {
           <DialogTitle>サインイン</DialogTitle>
         </DialogHeader>
         <div className="grid place-items-center mt-4">
-          <SignInButton provider="Google" icon={<FcGoogle size="24" />} />
+          <SignInButton provider="google" icon={<FcGoogle size="24" />} />
         </div>
         <DialogFooter>サインインしましょう。</DialogFooter>
       </DialogContent>

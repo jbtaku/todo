@@ -11,7 +11,7 @@ interface Props {
 
 function SignInButton({ provider, icon }: Props) {
   const handleSignIn = () => {
-    signIn(provider,);
+    signIn(provider);
   };
   return (
     <Button
