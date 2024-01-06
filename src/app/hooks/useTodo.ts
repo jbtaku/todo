@@ -19,7 +19,7 @@ export const useTodo = () => {
 
   const { mutate: post } = useMutation({
     mutationFn: postTodo,
-    onMutate: async (newData) => {
+    /* onMutate: async (newData) => {
       await queryClient.cancelQueries({ queryKey });
       const prevState = queryClient.getQueryData(queryKey) as Todo[];
       queryClient.setQueryData(queryKey, (old: Todo[]) => [
@@ -30,7 +30,7 @@ export const useTodo = () => {
     },
     onError: (err, newTodo, context) => {
       queryClient.setQueryData(queryKey, context?.prevState);
-    },
+    }, */
     onSettled: () => {
       //queryClient.invalidateQueries({ queryKey });
     },
@@ -38,7 +38,7 @@ export const useTodo = () => {
 
   const { mutate: del } = useMutation({
     mutationFn: deleteTodo,
-    onMutate: async (id) => {
+    /* onMutate: async (id) => {
       await queryClient.cancelQueries({ queryKey });
       const prevState = queryClient.getQueryData(queryKey) as Todo[];
       //queryClient.setQueryData(queryKey, (old: Todo[]) => []);
@@ -46,7 +46,7 @@ export const useTodo = () => {
     },
     onError: (err, newTodo, context) => {
       queryClient.setQueryData(queryKey, context?.prevState);
-    },
+    }, */
     onSettled: () => {
       //queryClient.invalidateQueries({ queryKey });
     },
