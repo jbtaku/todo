@@ -4,18 +4,8 @@ import TodoList from "./components/TodoList";
 import { Todo } from ".prisma/client";
 
 async function page() {
-  const a = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/todo`, {
-    cache: "force-cache",
-    next: { tags: ["test"] },
-  });
-  const b = (await a.json()) as Todo[];
   return (
     <div className="space-y-8">
-      <div>
-        {b.map((item) => {
-          return <p key={item.id}>{item.content}</p>;
-        })}
-      </div>
       <SignOutButton />
       <div className="border-4 border-green-600 p-6 space-y-4">
         <h2 className="text-4xl font-bold">todo Area</h2>
