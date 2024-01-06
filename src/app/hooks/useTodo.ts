@@ -13,21 +13,21 @@ export const useTodo = () => {
   const { data, isPending } = useQuery({
     queryKey,
     queryFn: async () => {
-      return fetcher<Todo[]>(`${process.env.NEXT_PUBLIC_BASE_URL}/api/todo`, { cache: "no-store" });
+      return fetcher<Todo[]>(`${process.env.NEXT_PUBLIC_BASE_URL}/api/todo`, {cache: "force-cache"});
     },
   });
 
   const { mutate: post } = useMutation({
     mutationFn: postTodo,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey });
+      //queryClient.invalidateQueries({ queryKey });
     },
   });
 
   const { mutate: del } = useMutation({
     mutationFn: deleteTodo,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey });
+      //queryClient.invalidateQueries({ queryKey });
     },
   });
 
