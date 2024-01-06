@@ -3,9 +3,10 @@ import CreateTodo from "./components/CreateTodo";
 import TodoList from "./components/TodoList";
 import ISR from "./components/ISR";
 import { Todo } from "@prisma/client";
+import { todos } from "@/hooks/useTodo";
 
 async function page() {
-  const a = (await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/todo`, {next: {tags: ["test"]}}).then((res) => res.json())) as Todo[];
+  const a = await todos()
   return (
     <div className="space-y-8">
       {a.map((item) => {
