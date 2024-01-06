@@ -16,7 +16,7 @@ async function page() {
         <h2 className="text-4xl font-bold">todo Area</h2>
         <CreateTodo />
         <TodoList />
-        <ISR />
+        {/* <ISR /> */}
       </div>
       {/* <div className="border-4 border-blue-600 p-6 space-y-12">
         <h2 className="text-4xl font-bold">S3 Area</h2>
