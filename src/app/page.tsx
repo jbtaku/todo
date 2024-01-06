@@ -3,10 +3,10 @@ import CreateTodo from "./components/CreateTodo";
 import TodoList from "./components/TodoList";
 import ISR from "./components/ISR";
 import { Todo } from "@prisma/client";
-import { todos } from "@/hooks/useTodo";
+import { todoList } from "@/data/todoList";
 
 async function page() {
-  const a = await todos()
+  const a = await todoList()
   return (
     <div className="space-y-8">
       {a.map((item) => {
