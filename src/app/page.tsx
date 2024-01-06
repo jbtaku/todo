@@ -5,7 +5,7 @@ import ISR from "./components/ISR";
 import { Todo } from "@prisma/client";
 
 async function page() {
-  const a = (await fetch("/api/todo").then((res) => res.json())) as Todo[];
+  const a = (await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/todo`).then((res) => res.json())) as Todo[];
   return (
     <div className="space-y-8">
       {a.map((item) => {
