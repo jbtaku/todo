@@ -38,9 +38,7 @@ export const useTodo = () => {
     onMutate: async (id) => {
       await queryClient.cancelQueries({ queryKey });
       const prevState = queryClient.getQueryData(queryKey) as Todo[];
-      queryClient.setQueryData(queryKey, (old: Todo[]) =>
-        old.filter((item) => item.id !== id)
-      );
+      //queryClient.setQueryData(queryKey, (old: Todo[]) => []);
       return { prevState };
     },
     onError: (err, newTodo, context) => {
