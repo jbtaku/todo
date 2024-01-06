@@ -1,11 +1,11 @@
 "use client";
 
+import { useTodo } from "@/hooks/useTodo";
 import { getTodo } from "../actions/useTodo";
-import { useTodo } from "../hooks/useTodo";
 import TodoItem from "./TodoItem";
 
 function TodoList() {
-  const { todoList } = useTodo();
+  //const { todoList } = useTodo();
 
   //デバッグ用の関数
   const debug = async () => {
@@ -18,6 +18,7 @@ function TodoList() {
     console.log("force-cache", data.json());
     console.log("server actions", data2);
   };
+  const todoList = useTodo();
 
   return (
     <div>
