@@ -1,11 +1,11 @@
 "use client";
 
-import { revalidatePath } from "next/cache";
+import { useISR } from "@/actions/useUserInfo";
 import React from "react";
 
 function ISR() {
   const onClick = () => {
-    revalidatePath("/api/todo");
+    useISR();
   };
   return <button onClick={onClick}>ISR</button>;
 }
