@@ -1,13 +1,12 @@
 import SignOutButton from "@/components/custom-ui/SignOutButton";
 import CreateTodo from "./components/CreateTodo";
 import TodoList from "./components/TodoList";
-import { fetcher } from "@/utils/fetcher";
 import { Todo } from ".prisma/client";
 
 async function page() {
   const a = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/todo`, {
     cache: "force-cache",
-    next: {revalidate:0}
+    next: { tags: ["test"] },
   });
   const b = (await a.json()) as Todo[];
   return (
