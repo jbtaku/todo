@@ -9,9 +9,12 @@ export const useTodo = () => {
   const { data, isPending } = useQuery({
     queryKey,
     queryFn: async () => {
-      return fetcher<Todo[]>(`${process.env.NEXT_PUBLIC_BASE_URL}/api/todo`);
+      return fetcher<Todo[]>(`${process.env.NEXT_PUBLIC_BASE_URL}/api/todo`, {
+        next: { tags: ["test"] },
+      });
     },
-    staleTime: Infinity,
+    staleTime: 0,
+    gcTime: 0,
   });
 
   const { mutate: post } = useMutation({
