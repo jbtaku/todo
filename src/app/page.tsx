@@ -7,6 +7,7 @@ import { Todo } from ".prisma/client";
 async function page() {
   const a = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/todo`, {
     cache: "force-cache",
+    next: {revalidate:0}
   });
   const b = (await a.json()) as Todo[];
   return (
