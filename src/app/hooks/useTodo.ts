@@ -12,19 +12,30 @@ export const useTodo = () => {
       return fetcher<Todo[]>(`${process.env.NEXT_PUBLIC_BASE_URL}/api/todo`);
     },
     staleTime: Infinity,
-    gcTime: 0,
   });
 
   const { mutate: post } = useMutation({
     mutationFn: postTodo,
-    onSuccess: () => {
+    onMutate: async (newData) => {
+      await queryClient.cancelQueries({ queryKey });
+      const prevState = queryClient.getQueryData(queryKey) as Todo[];
+      queryClient.setQueryData(queryKey, (old: Todo[]) => [
+        ...old,
+        { content: newData.content + "takumi" },
+      ]);
+      return { prevState };
+    },
+    onError: (err, newTodo, context) => {
+      queryClient.setQueryData(queryKey, context?.prevState);
+    },
+    onSettled: () => {
       queryClient.invalidateQueries({ queryKey });
     },
   });
 
   const { mutate: del } = useMutation({
     mutationFn: deleteTodo,
-    onSuccess: () => {
+    onSettled: () => {
       queryClient.invalidateQueries({ queryKey });
     },
   });
