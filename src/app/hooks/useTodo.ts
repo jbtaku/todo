@@ -21,7 +21,7 @@ export const useTodo = () => {
       const prevState = queryClient.getQueryData(queryKey) as Todo[];
       queryClient.setQueryData(queryKey, (old: Todo[]) => [
         ...old,
-        { content: newData.content + "takumi" },
+        { content: newData.content + "アップデートしたよ" },
       ]);
       return { prevState };
     },
@@ -35,6 +35,17 @@ export const useTodo = () => {
 
   const { mutate: del } = useMutation({
     mutationFn: deleteTodo,
+    onMutate: async (id) => {
+      await queryClient.cancelQueries({ queryKey });
+      const prevState = queryClient.getQueryData(queryKey) as Todo[];
+      queryClient.setQueryData(queryKey, (old: Todo[]) =>
+        old.filter((item) => item.id !== id)
+      );
+      return { prevState };
+    },
+    onError: (err, newTodo, context) => {
+      queryClient.setQueryData(queryKey, context?.prevState);
+    },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey });
     },
