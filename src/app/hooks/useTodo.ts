@@ -12,6 +12,7 @@ export const useTodo = () => {
       return fetcher<Todo[]>(`${process.env.NEXT_PUBLIC_BASE_URL}/api/todo`);
     },
     staleTime: Infinity,
+    gcTime: 0,
   });
 
   const { mutate: post } = useMutation({
