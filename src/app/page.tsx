@@ -9,7 +9,7 @@ async function page() {
   return (
     <div className="space-y-8">
       {a.map((item) => {
-        return <p>{item.content}</p>;
+        return <p key={item.id}>{item.content}</p>;
       })}
       <SignOutButton />
       <div className="border-4 border-green-600 p-6 space-y-4">
