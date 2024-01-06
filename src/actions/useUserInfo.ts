@@ -14,6 +14,6 @@ export const getUserInfo = async () => {
   }
 };
 
-export const useISR = async () => {
+export const testISR = async () => {
   revalidatePath("/api/todo");
 };
