@@ -15,5 +15,5 @@ export const getUserInfo = async () => {
 };
 
 export const testISR = async () => {
-  revalidatePath("/api/todo");
+  revalidatePath(`${process.env.NEXT_PUBLIC_BASE_URL}/api/todo`);
 };
