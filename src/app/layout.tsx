@@ -24,8 +24,8 @@ export default async function RootLayout({
 
   await queryClient.prefetchQuery({
     queryKey: ["posts"],
-    queryFn: async () => {
-      return await fetcher<Todo[]>(
+    queryFn: () => {
+      return fetcher<Todo[]>(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/todo`,
         {
           next: { tags: ["test"] },
