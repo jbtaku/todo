@@ -23,11 +23,14 @@ export default async function RootLayout({
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
-    queryKey: ["posts"],
+    queryKey: ["prefetch"],
     queryFn: async () => {
-      return (await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/todo`, {
-        next: { tags: ["test"] },
-      }).then((res) => res.json())) as Todo[];
+      return await fetcher<Todo[]>(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/todo`,
+        {
+          next: { tags: ["test"] },
+        }
+      );
     },
   });
   const a = dehydrate(queryClient);
