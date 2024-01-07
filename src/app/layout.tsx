@@ -21,7 +21,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const queryClient = new QueryClient();
-  const queryClient2 = new QueryClient();
+  //const queryClient2 = new QueryClient();
   const queryKey = ["todo"]
   const queryKey2 = ["todo2"]
 
@@ -37,7 +37,7 @@ export default async function RootLayout({
     },
   });
 
-  await queryClient2.prefetchQuery({
+  /* await queryClient2.prefetchQuery({
     queryKey: queryKey2,
     queryFn: async () => {
       return await fetcher<Todo[]>(
@@ -47,16 +47,16 @@ export default async function RootLayout({
         }
       );
     },
-  });
+  }); */
 
   const todo = dehydrate(queryClient);
-  const todo2 = dehydrate(queryClient2);
+  //const todo2 = dehydrate(queryClient2);
 
   return (
     <html lang="ja">
       <body className={`${inter.className} text-slate-700 bg-slate-100`}>
         <div className="w-[92%] max-w-[1024px] mx-auto mt-3 xs:mt-7 xs:w-[88%] sm:mt-9">
-          <Provider todo={todo} todo2={todo2}>
+          <Provider todo={todo} todo2={todo}>
             <Header />
             <div className="mt-12">{children}</div>
           </Provider>
