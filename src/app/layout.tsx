@@ -33,7 +33,7 @@ export default async function RootLayout({
       );
     },
   });
-  const a = [dehydrate(queryClient)];
+  const a = dehydrate(queryClient);
   return (
     <html lang="ja">
       <body className={`${inter.className} text-slate-700 bg-slate-100`}>
