@@ -2,13 +2,24 @@
 
 import { Children } from "@/types/common";
 import { SessionProvider } from "next-auth/react";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import {
+  DehydratedState,
+  HydrationBoundary,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
 
-function Provider({ children }: Children) {
-  const queryClient = new QueryClient()
+interface Props extends Children {
+  dehydratedState: DehydratedState
+}
+
+function Provider({ children, dehydratedState }: Props) {
+  const queryClient = new QueryClient();
   return (
     <QueryClientProvider client={queryClient}>
-      <SessionProvider>{children}</SessionProvider>
+      <HydrationBoundary state={dehydratedState}>
+        <SessionProvider>{children}</SessionProvider>
+      </HydrationBoundary>
     </QueryClientProvider>
   );
 }
