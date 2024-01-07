@@ -11,7 +11,7 @@ function ISR() {
     await todo2ISR();
   };
   return (
-    <div>
+    <div className="grid">
       <button onClick={onClick}>ISR</button>
       <button onClick={onClick2}>ISR2</button>
     </div>
