@@ -24,7 +24,7 @@ export default async function RootLayout({
   const todo = await dehydratedState({ queryKey: ["todo"], path: "/api/todo" });
   const todo2 = await dehydratedState({
     queryKey: ["todo2"],
-    path: "/api/todo",
+    path: "/api/todo2",
   });
 
   return (
