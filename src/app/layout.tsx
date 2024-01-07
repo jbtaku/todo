@@ -31,7 +31,7 @@ export default async function RootLayout({
       return await fetcher<Todo[]>(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/todo`,
         {
-          next: { tags: queryKey },
+          next: { tags: ["todo"] },
         }
       );
     },
@@ -43,7 +43,7 @@ export default async function RootLayout({
       return await fetcher<Todo[]>(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/todo2`,
         {
-          next: { tags: queryKey2 },
+          next: { tags: ["todo2"] },
         }
       );
     },

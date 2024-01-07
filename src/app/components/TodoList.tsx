@@ -11,9 +11,7 @@ function TodoList() {
 
   //デバッグ用の関数
   const debug = async () => {
-    const data = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/todo`, {
-      next: { tags: ["test"] },
-    });
+    const data = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/todo`);
 
     const data2 = await getTodo();
     console.log("fetch", data);
