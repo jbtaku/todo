@@ -2,7 +2,6 @@
 
 import { authOptions } from "@/lib/auth/authOptions";
 import { getServerSession } from "next-auth";
-import { revalidatePath, revalidateTag } from "next/cache";
 
 export const getUserInfo = async () => {
   const session = await getServerSession(authOptions);
@@ -12,8 +11,4 @@ export const getUserInfo = async () => {
   } else {
     return null;
   }
-};
-
-export const testISR = async () => {
-  revalidateTag("test");
 };

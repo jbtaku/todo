@@ -4,7 +4,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { deleteTodo, postTodo } from "../actions/useTodo";
 
 export const useTodo = () => {
-  const queryKey = ["todoList"];
+  /* const queryKey = ["todoList"];
   const queryClient = useQueryClient();
   const { data, isPending } = useQuery({
     queryKey,
@@ -15,7 +15,7 @@ export const useTodo = () => {
     },
     staleTime: 0,
     gcTime: 0,
-  });
+  }); */
 
   const { mutate: post } = useMutation({
     mutationFn: postTodo,
@@ -52,5 +52,5 @@ export const useTodo = () => {
     },
   });
 
-  return { todoList: data, isPending, postTodo: post, deleteTodo: del };
+  return { postTodo: post, deleteTodo: del };
 };

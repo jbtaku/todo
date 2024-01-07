@@ -1,13 +1,21 @@
 "use client";
 
-import { testISR } from "@/actions/useUserInfo";
+import { todo2ISR, todoISR } from "@/actions/useISR";
 import React from "react";
 
 function ISR() {
   const onClick = async () => {
-    await testISR();
+    await todoISR();
   };
-  return <button onClick={onClick}>ISR</button>;
+  const onClick2 = async () => {
+    await todo2ISR();
+  };
+  return (
+    <div>
+      <button onClick={onClick}>ISR</button>
+      <button onClick={onClick2}>ISR2</button>
+    </div>
+  );
 }
 
 export default ISR;

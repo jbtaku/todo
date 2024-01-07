@@ -1,23 +1,15 @@
 import SignOutButton from "@/components/custom-ui/SignOutButton";
 import CreateTodo from "./components/CreateTodo";
 import TodoList from "./components/TodoList";
-import ISR from "./components/ISR";
-import { Todo } from "@prisma/client";
-import { todoList } from "@/data/todoList";
 
 async function page() {
-  const a = await todoList()
   return (
     <div className="space-y-8">
-      {a.map((item) => {
-        return <p key={item.id}>{item.content}</p>;
-      })}
       <SignOutButton />
       <div className="border-4 border-green-600 p-6 space-y-4">
         <h2 className="text-4xl font-bold">todo Area</h2>
         <CreateTodo />
         <TodoList />
-        <ISR />
       </div>
       {/* <div className="border-4 border-blue-600 p-6 space-y-12">
         <h2 className="text-4xl font-bold">S3 Area</h2>

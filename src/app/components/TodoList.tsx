@@ -1,10 +1,10 @@
 "use client";
 
-import { useTodo } from "@/hooks/useTodo";
 import { getTodo } from "../actions/useTodo";
 import TodoItem from "./TodoItem";
 import { useQuery } from "@tanstack/react-query";
 import { Todo } from "@prisma/client";
+import ISR from "./ISR";
 
 function TodoList() {
   //const { todoList } = useTodo();
@@ -20,21 +20,25 @@ function TodoList() {
     console.log("force-cache", data.json());
     console.log("server actions", data2);
   };
-  const todoList = useTodo();
-  const { data } = useQuery<Todo[]>({ queryKey: ["prefetch"] });
+  const { data: todo } = useQuery<Todo[]>({ queryKey: ["todo"] });
+  const { data: todo2 } = useQuery<Todo[]>({ queryKey: ["todo2"] });
 
   return (
     <div>
-      {todoList?.map((item) => {
-        return <TodoItem key={item.id} {...item} />;
-      })}
-      <button onClick={debug}>デバッグ</button>
-      <div className="border-4 border-red-400">
-        <p className="text-4xl font-bold">prefetch test</p>
-        {data?.map((item) => {
-          return <p key={item.id}>{item.content}</p>;
+      <div className="border-4 border-blue-400 p-6">
+        <p className="text-4xl font-bold">todo</p>
+        {todo?.map((item) => {
+          return <TodoItem key={item.id} {...item} />;
         })}
       </div>
+      <div className="border-4 border-red-400 p-6">
+        <p className="text-4xl font-bold">todo2</p>
+        {todo2?.map((item) => {
+          return <TodoItem key={item.id} {...item} />;
+        })}
+      </div>
+      <button onClick={debug}>デバッグ</button>
+      <ISR/>
     </div>
   );
 }

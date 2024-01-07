@@ -10,15 +10,18 @@ import {
 } from "@tanstack/react-query";
 
 interface Props extends Children {
-  dehydratedState: DehydratedState
+  todo: DehydratedState;
+  todo2: DehydratedState;
 }
 
-function Provider({ children, dehydratedState }: Props) {
+function Provider({ children, todo, todo2 }: Props) {
   const queryClient = new QueryClient();
   return (
     <QueryClientProvider client={queryClient}>
-      <HydrationBoundary state={dehydratedState}>
-        <SessionProvider>{children}</SessionProvider>
+      <HydrationBoundary state={todo}>
+        <HydrationBoundary state={todo2}>
+          <SessionProvider>{children}</SessionProvider>
+        </HydrationBoundary>
       </HydrationBoundary>
     </QueryClientProvider>
   );

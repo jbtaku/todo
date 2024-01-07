@@ -21,24 +21,42 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const queryClient = new QueryClient();
+  const queryClient2 = new QueryClient();
+  const queryKey = ["todo"]
+  const queryKey2 = ["todo2"]
 
   await queryClient.prefetchQuery({
-    queryKey: ["prefetch"],
+    queryKey,
     queryFn: async () => {
       return await fetcher<Todo[]>(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/todo`,
         {
-          next: { tags: ["test"] },
+          next: { tags: queryKey },
         }
       );
     },
   });
-  const a = dehydrate(queryClient);
+
+  await queryClient2.prefetchQuery({
+    queryKey: queryKey2,
+    queryFn: async () => {
+      return await fetcher<Todo[]>(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/todo2`,
+        {
+          next: { tags: queryKey2 },
+        }
+      );
+    },
+  });
+
+  const todo = dehydrate(queryClient);
+  const todo2 = dehydrate(queryClient2);
+
   return (
     <html lang="ja">
       <body className={`${inter.className} text-slate-700 bg-slate-100`}>
         <div className="w-[92%] max-w-[1024px] mx-auto mt-3 xs:mt-7 xs:w-[88%] sm:mt-9">
-          <Provider dehydratedState={a}>
+          <Provider todo={todo} todo2={todo2}>
             <Header />
             <div className="mt-12">{children}</div>
           </Provider>
