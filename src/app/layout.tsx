@@ -7,6 +7,7 @@ import Footer from "@/components/layout/Footer";
 import { QueryClient, dehydrate } from "@tanstack/react-query";
 import { fetcher } from "@/utils/fetcher";
 import { Todo } from "@prisma/client";
+import { dehydratedState } from "@/lib/react-query/dehydratedState";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,37 +21,11 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const queryClient = new QueryClient();
-  const queryClient2 = new QueryClient();
-  const queryKey = ["todo"]
-  const queryKey2 = ["todo2"]
-
-  await queryClient.prefetchQuery({
-    queryKey,
-    queryFn: async () => {
-      return await fetcher<Todo[]>(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/todo`,
-        {
-          next: { tags: queryKey },
-        }
-      );
-    },
+  const todo = await dehydratedState({ queryKey: ["todo"], path: "/api/todo" });
+  const todo2 = await dehydratedState({
+    queryKey: ["todo2"],
+    path: "/api/todo",
   });
-
-  await queryClient2.prefetchQuery({
-    queryKey: queryKey2,
-    queryFn: async () => {
-      return await fetcher<Todo[]>(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/todo2`,
-        {
-          next: { tags: queryKey2 },
-        }
-      );
-    },
-  });
-
-  const todo = dehydrate(queryClient);
-  const todo2 = dehydrate(queryClient2);
 
   return (
     <html lang="ja">
