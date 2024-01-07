@@ -19,7 +19,9 @@ function Provider({ children, todo, todo2 }: Props) {
   return (
     <QueryClientProvider client={queryClient}>
       <HydrationBoundary state={todo}>
-        <SessionProvider>{children}</SessionProvider>
+        <HydrationBoundary state={todo2}>
+          <SessionProvider>{children}</SessionProvider>
+        </HydrationBoundary>
       </HydrationBoundary>
     </QueryClientProvider>
   );

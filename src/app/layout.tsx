@@ -21,7 +21,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const queryClient = new QueryClient();
-  //const queryClient2 = new QueryClient();
+  const queryClient2 = new QueryClient();
   const queryKey = ["todo"]
   const queryKey2 = ["todo2"]
 
@@ -31,26 +31,26 @@ export default async function RootLayout({
       return await fetcher<Todo[]>(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/todo`,
         {
-          next: { tags: ["todo"] },
+          next: { tags: queryKey },
         }
       );
     },
   });
 
-  /* await queryClient2.prefetchQuery({
+  await queryClient2.prefetchQuery({
     queryKey: queryKey2,
     queryFn: async () => {
       return await fetcher<Todo[]>(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/todo2`,
         {
-          next: { tags: ["todo2"] },
+          next: { tags: queryKey2 },
         }
       );
     },
-  }); */
+  });
 
   const todo = dehydrate(queryClient);
-  //const todo2 = dehydrate(queryClient2);
+  const todo2 = dehydrate(queryClient2);
 
   return (
     <html lang="ja">
