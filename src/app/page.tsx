@@ -5,16 +5,13 @@ import { fetcher } from "@/utils/fetcher";
 import { Todo } from "@prisma/client";
 
 async function page() {
-  const a = await fetcher<Todo[]>(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/todo`,
-    {
-      next: { tags: ["todo"] },
-    }
-  );
+  const a = (await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/todo`, {
+    next: { tags: ["todo"] },
+  }).then((res) => res.json())) as Todo[];
   return (
     <div className="space-y-8">
-      {a?.map((item)=>{
-        return <p key={item.id}>{item.content}</p>
+      {a?.map((item) => {
+        return <p key={item.id}>{item.content}</p>;
       })}
       <SignOutButton />
       <div className="border-4 border-green-600 p-6 space-y-4">
