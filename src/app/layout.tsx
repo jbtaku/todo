@@ -56,7 +56,7 @@ export default async function RootLayout({
     <html lang="ja">
       <body className={`${inter.className} text-slate-700 bg-slate-100`}>
         <div className="w-[92%] max-w-[1024px] mx-auto mt-3 xs:mt-7 xs:w-[88%] sm:mt-9">
-          <Provider todo={todo} todo2={todo}>
+          <Provider todo={todo} todo2={todo2}>
             <Header />
             <div className="mt-12">{children}</div>
           </Provider>
