@@ -10,7 +10,7 @@ import {
 } from "@tanstack/react-query";
 
 interface Props extends Children {
-  dehydratedState: DehydratedState
+  dehydratedState: DehydratedState[]
 }
 
 function Provider({ children, dehydratedState }: Props) {
