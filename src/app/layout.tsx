@@ -25,12 +25,9 @@ export default async function RootLayout({
   await queryClient.prefetchQuery({
     queryKey: ["prefetch"],
     queryFn: async () => {
-      return await fetcher<Todo[]>(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/todo`,
-        {
-          next: { tags: ["test"] },
-        }
-      );
+      return (await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/todo`, {
+        next: { tags: ["test"] },
+      }).then((res) => res.json())) as Todo[];
     },
   });
   const a = dehydrate(queryClient);
