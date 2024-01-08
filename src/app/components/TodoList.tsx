@@ -2,9 +2,10 @@
 
 import { getTodo } from "../actions/useTodo";
 import TodoItem from "./TodoItem";
-import { useQuery } from "@tanstack/react-query";
+import { hydrate, useQuery } from "@tanstack/react-query";
 import { Todo } from "@prisma/client";
 import ISR from "./ISR";
+import { fetcher } from "@/utils/fetcher";
 
 function TodoList() {
   //const { todoList } = useTodo();
@@ -18,7 +19,17 @@ function TodoList() {
     console.log("force-cache", data.json());
     console.log("server actions", data2);
   };
-  const { data: todo } = useQuery<Todo[]>({ queryKey: ["todo"] });
+  const { data: todo } = useQuery<Todo[]>({
+    queryKey: ["todo"],
+    queryFn: async () => {
+      return await fetcher<Todo[]>(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/todo`,
+        {
+          next: { tags: ["todo"] },
+        }
+      );
+    },
+  });
   const { data: todo2 } = useQuery<Todo[]>({ queryKey: ["todo2"] });
 
   return (
@@ -36,7 +47,7 @@ function TodoList() {
         })}
       </div>
       <button onClick={debug}>デバッグ</button>
-      <ISR/>
+      <ISR />
     </div>
   );
 }

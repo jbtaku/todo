@@ -6,16 +6,6 @@ import { deleteTodo, postTodo } from "../actions/useTodo";
 export const useTodo = () => {
   const queryKey = ["todo"];
   const queryClient = useQueryClient();
-  /*const { data, isPending } = useQuery({
-    queryKey,
-    queryFn: async () => {
-      return fetcher<Todo[]>(`${process.env.NEXT_PUBLIC_BASE_URL}/api/todo`, {
-        next: { tags: ["test"] },
-      });
-    },
-    staleTime: 0,
-    gcTime: 0,
-  }); */
 
   const { mutate: post } = useMutation({
     mutationKey: queryKey,
