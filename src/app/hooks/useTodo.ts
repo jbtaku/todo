@@ -16,6 +16,7 @@ export const useTodo = () => {
         }
       );
     },
+    staleTime: Infinity
   });
 
   const { mutate: post } = useMutation({
@@ -70,6 +71,7 @@ export const useTodo2 = () => {
         }
       );
     },
+    staleTime: Infinity
   });
 
   const { mutate: post } = useMutation({
