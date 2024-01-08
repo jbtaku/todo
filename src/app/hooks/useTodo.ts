@@ -4,9 +4,9 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { deleteTodo, postTodo } from "../actions/useTodo";
 
 export const useTodo = () => {
-  /* const queryKey = ["todoList"];
+  const queryKey = ["todo"];
   const queryClient = useQueryClient();
-  const { data, isPending } = useQuery({
+  /*const { data, isPending } = useQuery({
     queryKey,
     queryFn: async () => {
       return fetcher<Todo[]>(`${process.env.NEXT_PUBLIC_BASE_URL}/api/todo`, {
@@ -18,7 +18,7 @@ export const useTodo = () => {
   }); */
 
   const { mutate: post } = useMutation({
-    mutationKey: ["todo"],
+    mutationKey: queryKey,
     mutationFn: postTodo,
     /* onMutate: async (newData) => {
       await queryClient.cancelQueries({ queryKey });
@@ -33,12 +33,12 @@ export const useTodo = () => {
       queryClient.setQueryData(queryKey, context?.prevState);
     }, */
     onSettled: () => {
-      //queryClient.invalidateQueries({ queryKey });
+      queryClient.invalidateQueries({ queryKey });
     },
   });
 
   const { mutate: del } = useMutation({
-    mutationKey: ["todo"],
+    mutationKey: queryKey,
     mutationFn: deleteTodo,
     /* onMutate: async (id) => {
       await queryClient.cancelQueries({ queryKey });
@@ -50,7 +50,7 @@ export const useTodo = () => {
       queryClient.setQueryData(queryKey, context?.prevState);
     }, */
     onSettled: () => {
-      //queryClient.invalidateQueries({ queryKey });
+      queryClient.invalidateQueries({ queryKey });
     },
   });
 
