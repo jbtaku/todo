@@ -6,6 +6,17 @@ import { deleteTodo, postTodo } from "../actions/useTodo";
 export const useTodo = () => {
   const queryKey = ["todo"];
   const queryClient = useQueryClient();
+  const { data } = useQuery<Todo[]>({
+    queryKey,
+    queryFn: async () => {
+      return await fetcher<Todo[]>(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/todo`,
+        {
+          next: { tags: ["todo"] },
+        }
+      );
+    },
+  });
 
   const { mutate: post } = useMutation({
     mutationKey: queryKey,
@@ -44,5 +55,61 @@ export const useTodo = () => {
     },
   });
 
-  return { postTodo: post, deleteTodo: del };
+  return { todo: data, postTodo: post, deleteTodo: del };
+};
+
+export const useTodo2 = () => {
+  const queryKey = ["todo2"];
+  const queryClient = useQueryClient();
+
+  const { data } = useQuery<Todo[]>({
+    queryKey,
+    queryFn: async () => {
+      return await fetcher<Todo[]>(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/todo2`,
+        {
+          next: { tags: ["todo2"] },
+        }
+      );
+    },
+  });
+
+  const { mutate: post } = useMutation({
+    mutationKey: queryKey,
+    mutationFn: postTodo,
+    /* onMutate: async (newData) => {
+      await queryClient.cancelQueries({ queryKey });
+      const prevState = queryClient.getQueryData(queryKey) as Todo[];
+      queryClient.setQueryData(queryKey, (old: Todo[]) => [
+        ...old,
+        { content: newData.content + "アップデートしたよ" },
+      ]);
+      return { prevState };
+    },
+    onError: (err, newTodo, context) => {
+      queryClient.setQueryData(queryKey, context?.prevState);
+    }, */
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey });
+    },
+  });
+
+  const { mutate: del } = useMutation({
+    mutationKey: queryKey,
+    mutationFn: deleteTodo,
+    /* onMutate: async (id) => {
+      await queryClient.cancelQueries({ queryKey });
+      const prevState = queryClient.getQueryData(queryKey) as Todo[];
+      //queryClient.setQueryData(queryKey, (old: Todo[]) => []);
+      return { prevState };
+    },
+    onError: (err, newTodo, context) => {
+      queryClient.setQueryData(queryKey, context?.prevState);
+    }, */
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey });
+    },
+  });
+
+  return { todo2: data, postTodo2: post, deleteTodo2: del };
 };
