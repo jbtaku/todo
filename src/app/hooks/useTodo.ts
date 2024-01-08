@@ -34,7 +34,7 @@ export const useTodo = () => {
       queryClient.setQueryData(queryKey, context?.prevState);
     }, */
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey });
+      queryClient.invalidateQueries({ queryKey: ["todo", "todo2"] });
     },
   });
 
