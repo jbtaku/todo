@@ -9,6 +9,7 @@ export const useTodo = () => {
   const { data } = useQuery<Todo[]>({
     queryKey,
     queryFn: async () => {
+      console.log("fetch todo!!")
       return await fetcher<Todo[]>(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/todo`,
         {
