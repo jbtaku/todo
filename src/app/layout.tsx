@@ -3,10 +3,6 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Provider from "./Provider";
 import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
-import { QueryClient, dehydrate } from "@tanstack/react-query";
-import { fetcher } from "@/utils/fetcher";
-import { Todo } from "@prisma/client";
 import { dehydratedState } from "@/lib/react-query/dehydratedState";
 
 const inter = Inter({ subsets: ["latin"] });
