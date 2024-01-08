@@ -18,6 +18,7 @@ export const useTodo = () => {
   }); */
 
   const { mutate: post } = useMutation({
+    mutationKey: ["todo"],
     mutationFn: postTodo,
     /* onMutate: async (newData) => {
       await queryClient.cancelQueries({ queryKey });
@@ -37,6 +38,7 @@ export const useTodo = () => {
   });
 
   const { mutate: del } = useMutation({
+    mutationKey: ["todo"],
     mutationFn: deleteTodo,
     /* onMutate: async (id) => {
       await queryClient.cancelQueries({ queryKey });
