@@ -12,7 +12,7 @@ export const useTodo = () => {
       return await fetcher<Todo[]>(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/todo`,
         {
-          next: { tags: ["todo"] },
+          next: { tags: queryKey },
         }
       );
     },
@@ -34,7 +34,7 @@ export const useTodo = () => {
       queryClient.setQueryData(queryKey, context?.prevState);
     }, */
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey });
+      //queryClient.invalidateQueries({ queryKey });
     },
   });
 
@@ -51,7 +51,7 @@ export const useTodo = () => {
       queryClient.setQueryData(queryKey, context?.prevState);
     }, */
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey });
+      //queryClient.invalidateQueries({ queryKey });
     },
   });
 
@@ -68,7 +68,7 @@ export const useTodo2 = () => {
       return await fetcher<Todo[]>(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/todo2`,
         {
-          next: { tags: ["todo2"] },
+          next: { tags: queryKey },
         }
       );
     },
