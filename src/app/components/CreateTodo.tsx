@@ -48,7 +48,7 @@ function CreateTodo() {
           )}
         />
         <Button type="submit" className="mt-4">
-          作成
+          作成(todo1のみinvalidateQueryする)
         </Button>
       </form>
     </Form>
