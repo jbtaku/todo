@@ -19,7 +19,6 @@ export const useTodo = () => {
   });
 
   const { mutate: post } = useMutation({
-    mutationKey: queryKey,
     mutationFn: postTodo,
     /* onMutate: async (newData) => {
       await queryClient.cancelQueries({ queryKey });
@@ -34,12 +33,11 @@ export const useTodo = () => {
       queryClient.setQueryData(queryKey, context?.prevState);
     }, */
     onSettled: () => {
-      //queryClient.invalidateQueries({ queryKey });
+      queryClient.invalidateQueries();
     },
   });
 
   const { mutate: del } = useMutation({
-    mutationKey: queryKey,
     mutationFn: deleteTodo,
     /* onMutate: async (id) => {
       await queryClient.cancelQueries({ queryKey });
@@ -51,7 +49,7 @@ export const useTodo = () => {
       queryClient.setQueryData(queryKey, context?.prevState);
     }, */
     onSettled: () => {
-      //queryClient.invalidateQueries({ queryKey });
+      queryClient.invalidateQueries();
     },
   });
 
