@@ -33,7 +33,7 @@ export const useTodo = () => {
       queryClient.setQueryData(queryKey, context?.prevState);
     }, */
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["todo"] }); //todoとtodo2の両方を再検証
+      queryClient.invalidateQueries({ queryKey });
     },
   });
 
