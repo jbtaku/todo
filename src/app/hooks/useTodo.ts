@@ -16,7 +16,7 @@ export const useTodo = () => {
         }
       );
     },
-    staleTime: Infinity
+    staleTime: Infinity,
   });
 
   const { mutate: post } = useMutation({
@@ -34,7 +34,7 @@ export const useTodo = () => {
       queryClient.setQueryData(queryKey, context?.prevState);
     }, */
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["todo", "todo2"] });
+      queryClient.invalidateQueries({ queryKey });
     },
   });
 
@@ -71,7 +71,7 @@ export const useTodo2 = () => {
         }
       );
     },
-    staleTime: Infinity
+    staleTime: Infinity,
   });
 
   const { mutate: post } = useMutation({
