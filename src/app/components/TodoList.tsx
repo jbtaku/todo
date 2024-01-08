@@ -28,13 +28,13 @@ function TodoList() {
       <div className="border-4 border-blue-400 p-6">
         <p className="text-4xl font-bold">todo</p>
         {todo?.map((item) => {
-          return <TodoItem key={item.id} {...item} />;
+          return <TodoItem key={item.id} {...item} todo="todo" />;
         })}
       </div>
       <div className="border-4 border-red-400 p-6">
         <p className="text-4xl font-bold">todo2</p>
         {todo2?.map((item) => {
-          return <TodoItem key={item.id} {...item} />;
+          return <TodoItem key={item.id} {...item} todo="todo2" />;
         })}
       </div>
       <button onClick={debug}>デバッグ</button>

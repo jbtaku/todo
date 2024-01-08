@@ -33,7 +33,7 @@ export const useTodo = () => {
       queryClient.setQueryData(queryKey, context?.prevState);
     }, */
     onSettled: () => {
-      queryClient.invalidateQueries();
+      queryClient.invalidateQueries({queryKey: ["todo", "todo2"]});//todoとtodo2の両方を再検証
     },
   });
 
@@ -73,7 +73,6 @@ export const useTodo2 = () => {
   });
 
   const { mutate: post } = useMutation({
-    mutationKey: queryKey,
     mutationFn: postTodo,
     /* onMutate: async (newData) => {
       await queryClient.cancelQueries({ queryKey });
@@ -93,7 +92,6 @@ export const useTodo2 = () => {
   });
 
   const { mutate: del } = useMutation({
-    mutationKey: queryKey,
     mutationFn: deleteTodo,
     /* onMutate: async (id) => {
       await queryClient.cancelQueries({ queryKey });
