@@ -73,6 +73,7 @@ export const useTodo2 = () => {
         }
       );
     },
+    staleTime: Infinity
   });
 
   const { mutate: post } = useMutation({
