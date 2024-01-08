@@ -9,7 +9,7 @@ export const useTodo = () => {
   const { data } = useQuery<Todo[]>({
     queryKey,
     queryFn: async () => {
-      console.log("fetch todo!!")
+      console.log("fetch todo!!");
       return await fetcher<Todo[]>(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/todo`,
         {
@@ -65,6 +65,7 @@ export const useTodo2 = () => {
   const { data } = useQuery<Todo[]>({
     queryKey,
     queryFn: async () => {
+      console.log("fetch todo2222");
       return await fetcher<Todo[]>(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/todo2`,
         {
@@ -72,7 +73,6 @@ export const useTodo2 = () => {
         }
       );
     },
-    staleTime: Infinity,
   });
 
   const { mutate: post } = useMutation({
