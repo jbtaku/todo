@@ -6,26 +6,28 @@ import { Todo } from "@prisma/client";
 
 async function page() {
   const todo = await fetcher<Todo[]>(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/todo`
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/todo`,
+    {next: {tags: ["todo"]}}
   );
   const todo2 = await fetcher<Todo[]>(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/todo2`
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/todo2`,
+    {next: {tags: ["todo2"]}}
   );
   return (
     <div className="space-y-8">
-      <div className="border-4 border-slate-700">
-        <h2>react queryを使わない場合(Todo1)</h2>
+      <SignOutButton />
+      <div className="border-4 border-slate-700 p-6">
+        <h2 className="text-4xl font-bold">react queryを使わない場合(Todo1)</h2>
         {todo.map((item) => {
           return <p key={item.id}>{item.content}</p>;
         })}
       </div>
-      <div className="border-4 border-pink-600">
-        <h2>react queryを使わない場合(Todo2)</h2>
+      <div className="border-4 border-pink-600 p-6">
+        <h2 className="text-4xl font-bold">react queryを使わない場合(Todo2)</h2>
         {todo2.map((item) => {
           return <p key={item.id}>{item.content}</p>;
         })}
       </div>
-      <SignOutButton />
       <div className="border-4 border-green-600 p-6 space-y-4">
         <h2 className="text-4xl font-bold">todo Area</h2>
         <CreateTodo />
