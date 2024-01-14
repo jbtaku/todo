@@ -1,23 +1,25 @@
-"use client";
+import { getUserInfo } from '@/actions/useUserInfo';
+import Link from 'next/link';
+import React from 'react';
+import { ReactQueryTestWrapper } from '../components/ReactQueryTestWrapper';
 
-import { useQState } from "@/hooks/useQState";
-import Link from "next/link";
-import React from "react";
+export default async function Page() {
+  const initialUserInfo = await getUserInfo();
 
-function Page() {
-  const [count, setCount] = useQState(["count"], 1);
-  const onClick = () => {
-    setCount((prevState) => prevState + 1);
-  };
+  // const [count, setCount] = useQState(['count'], 1);
+  // const onClick = () => {
+  //   setCount((prevState) => prevState + 1);
+  // };
   return (
     <div>
+      <ReactQueryTestWrapper initialData={initialUserInfo} />
       <div>
-        <p>{count}</p>
-        <button onClick={onClick}>up count</button>
+        {/* <p>{count}</p>
+        <button onClick={onClick}>up count</button> */}
       </div>
-      <Link href={"/"}>go to top</Link>
+      <Link href={'/'}>go to top</Link>
     </div>
   );
 }
 
-export default Page;
+// export default Page;
