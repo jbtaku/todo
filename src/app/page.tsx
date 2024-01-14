@@ -17,7 +17,7 @@ function Page() {
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/todo2`,
     { next: { tags: ["todo2"] } }
   ); */
-  const [count, setCount] = useQState(["count"], 1);
+  const [count, setCount] = useQState<number>(["count"]);
   const onClick = () => {
     setCount((prevState) => prevState + 1);
   };
