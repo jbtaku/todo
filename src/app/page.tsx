@@ -1,14 +1,15 @@
-"use client"
+import SignOutButton from '@/components/custom-ui/SignOutButton';
+import CreateTodo from './components/CreateTodo';
+import TodoList from './components/TodoList';
+import { fetcher } from '@/utils/fetcher';
+import { Todo } from '@prisma/client';
+import Link from 'next/link';
+import { getUserInfo } from '@/actions/useUserInfo';
+import React from 'react';
+import { ReactQueryTestWrapper } from './components/ReactQueryTestWrapper';
 
-import SignOutButton from "@/components/custom-ui/SignOutButton";
-import CreateTodo from "./components/CreateTodo";
-import TodoList from "./components/TodoList";
-import { fetcher } from "@/utils/fetcher";
-import { Todo } from "@prisma/client";
-import { useQState } from "@/hooks/useQState";
-import Link from "next/link";
-
-function Page() {
+export default async function Page() {
+  const initialUserInfo = await getUserInfo();
   /* const todo = await fetcher<Todo[]>(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/todo`,
     { next: { tags: ["todo"] } }
@@ -17,18 +18,19 @@ function Page() {
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/todo2`,
     { next: { tags: ["todo2"] } }
   ); */
-  const [count, setCount] = useQState<number>(["count"]);
-  const onClick = () => {
-    setCount((prevState) => prevState + 1);
-  };
+  // const [count, setCount] = useQState(['count'], 1);
+  // const onClick = () => {
+  //   setCount((prevState) => prevState + 1);
+  // };
   return (
     <div className="space-y-8">
+      <ReactQueryTestWrapper initialData={initialUserInfo} />
       <SignOutButton />
       <div>
-        <p>{count}</p>
-        <button onClick={onClick}>up count</button>
+        {/* <p>{count}</p>
+        <button onClick={onClick}>up count</button> */}
       </div>
-      <Link href={"/react-query"}>go to react-query</Link>
+      <Link href={'/react-query'}>go to react-query</Link>
       {/* <div className="border-4 border-slate-700 p-6">
         <h2 className="text-4xl font-bold">react queryを使わない場合(Todo1)</h2>
         {todo.map((item) => {
@@ -67,4 +69,4 @@ function Page() {
   );
 }
 
-export default Page;
+// export default Page;
