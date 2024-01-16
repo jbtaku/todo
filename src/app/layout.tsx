@@ -20,14 +20,14 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     path: '/api/todo2',
   });
 
-  const initialUserInfo = await getUserInfo();
+  // const initialUserInfo = await getUserInfo();
 
   return (
     <html lang="ja">
       <body className={`${inter.className} text-slate-700 bg-slate-100`}>
         <div className="w-[92%] max-w-[1024px] mx-auto mt-3 xs:mt-7 xs:w-[88%] sm:mt-9">
           <Provider todo={todo} todo2={todo2}>
-            <Header initialData={initialUserInfo} />
+            <Header />
             <div className="mt-12">{children}</div>
           </Provider>
         </div>
