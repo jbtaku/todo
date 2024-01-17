@@ -1,25 +1,8 @@
 'use server';
 
-import { authOptions } from '@/lib/auth/authOptions';
 import prisma from '@/lib/prisma/prisma';
-import { getServerSession } from 'next-auth';
 
-export const getUserInfo = async () => {
-  // const session = await getServerSession(authOptions);
-  // const id = session?.user.id;
-  const user = await prisma.user.findMany();
-  // if (id) {
-  //   return { ...session.user };
-  // } else {
-  //   return null;
-  // }
-  if (user !== null) {
-    return user;
-  } else {
-    return null;
-  }
-};
-
+/** ユーザー情報 */
 export type UserInfo = {
   id: string;
   name: string;
@@ -28,12 +11,32 @@ export type UserInfo = {
   image: string;
 };
 
+/**
+ * Server Actions
+ *
+ * ユーザー情報一覧を取得する
+ */
+export const getUserInfo = async () => {
+  const user = await prisma.user.findMany();
+  if (user !== null) {
+    return user;
+  } else {
+    return null;
+  }
+};
+
+/** ユーザー登録情報 */
 export type SetUserInfo = {
   name: string;
   email: string;
   emailVerified: Date;
 };
 
+/**
+ * Server Actions
+ *
+ * ユーザー情報を登録する
+ */
 export const setUserInfo = async ({ name, email, emailVerified }: SetUserInfo) => {
   await prisma.user.create({
     data: {
