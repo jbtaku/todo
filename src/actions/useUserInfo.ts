@@ -20,17 +20,27 @@ export const getUserInfo = async () => {
   }
 };
 
-export const setUserInfo = async () => {
-  const uuid = crypto.randomUUID();
-  try {
-    await prisma.user.create({
-      data: {
-        name: `test_wada_${uuid}`,
-        email: `test_wada_${uuid}@gmail.com`,
-        emailVerified: new Date(),
-      },
-    });
-  } catch (err) {
-    console.log(err);
-  }
+export type UserInfo = {
+  id: string;
+  name: string;
+  email: string;
+  emailVerified: Date;
+  image: string;
+};
+
+export type SetUserInfo = {
+  name: string;
+  email: string;
+  emailVerified: Date;
+};
+
+export const setUserInfo = async ({ name, email, emailVerified }: SetUserInfo) => {
+  await prisma.user.create({
+    data: {
+      name,
+      email,
+      emailVerified,
+    },
+  });
+  return { name, email, emailVerified };
 };
