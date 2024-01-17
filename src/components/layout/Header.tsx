@@ -18,11 +18,11 @@ function Header() {
         <div className="flex items-center ml-auto">
           {userInfo && userInfo.length > 0 ? (
             <div className="flex space-x-4 items-center">
-              {/* {userInfo[0].image ? (
+              {userInfo[0].image ? (
                 <Image src={userInfo[0].image} width={40} height={40} alt="プロフィール画像" className="w-12 circle" />
               ) : (
                 <VscAccount className="" size={'40'} />
-              )} */}
+              )}
             </div>
           ) : (
             <SignInDialog />

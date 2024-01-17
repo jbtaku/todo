@@ -1,9 +1,9 @@
-import { getUserInfo } from '@/actions/useUserInfo';
 import Link from 'next/link';
 import React from 'react';
 import { ReactQueryTestWrapper } from '../components/ReactQueryTestWrapper';
-import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
+import { HydrationBoundary, dehydrate } from '@tanstack/react-query';
 import getQueryClient from '@/lib/react-query/getQueryClient';
+import prisma from '@/lib/prisma/prisma';
 
 export default async function Page() {
   const queryClient = getQueryClient();
@@ -12,7 +12,10 @@ export default async function Page() {
 
   await queryClient.prefetchQuery({
     queryKey,
-    queryFn: getUserInfo,
+    queryFn: async () => {
+      const user = await prisma.user.findMany();
+      return user;
+    },
   });
 
   // const [count, setCount] = useQState(['count'], 1);
@@ -32,5 +35,3 @@ export default async function Page() {
     </HydrationBoundary>
   );
 }
-
-// export default Page;

@@ -8,9 +8,7 @@ export const ReactQueryTest = ({ queryKey }: { queryKey: [string] }) => {
   const { userInfo, mutation } = useUserInfo(queryKey);
   const [qStateData] = useQState<string>(['qState'], 'qState test');
 
-  // console.log('userInfo after mutate', userInfo);
-  // console.log('isPending in client component', isPending);
-  // console.log('qStateData in client component', qStateData);
+  console.log('ReactQueryTest, userInfo', userInfo);
 
   return (
     <>

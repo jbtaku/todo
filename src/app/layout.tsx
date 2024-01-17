@@ -4,7 +4,6 @@ import './globals.css';
 import Provider from './Provider';
 import Header from '@/components/layout/Header';
 import { dehydratedState } from '@/lib/react-query/dehydratedState';
-import { getUserInfo } from '@/actions/useUserInfo';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -19,8 +18,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     queryKey: ['todo2'],
     path: '/api/todo2',
   });
-
-  // const initialUserInfo = await getUserInfo();
 
   return (
     <html lang="ja">
