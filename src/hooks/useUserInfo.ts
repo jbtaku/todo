@@ -16,11 +16,9 @@ export const useUserInfo = (initialQueryKey: [string]) => {
     // queryFn: async () => {
     //   return await getUserInfo();
     // },
-    // initialData: queryClient.getQueryData(queryKey) as UserInfo[],
   });
 
-  console.log('data', data);
-  console.log('isPending', isPending);
+  console.log('useUserInfo data', data);
 
   const mutation = useMutation({
     mutationFn: setUserInfo,
