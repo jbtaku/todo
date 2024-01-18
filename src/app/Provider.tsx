@@ -11,16 +11,13 @@ interface Props extends Children {
 }
 
 function Provider({ children, todo, todo2 }: Props) {
-  // const queryClient = new QueryClient();
-
   const [queryClient] = useState(
     () =>
       new QueryClient({
         defaultOptions: {
           queries: {
-            // With SSR, we usually want to set some default staleTime
-            // above 0 to avoid refetching immediately on the client
-            staleTime: 60 * 1000,
+            // この値は0より大きい必要がある
+            staleTime: Infinity,
           },
         },
       })

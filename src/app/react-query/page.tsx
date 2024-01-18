@@ -1,13 +1,15 @@
 import Link from 'next/link';
 import React from 'react';
 import { ReactQueryTestWrapper } from '../components/ReactQueryTestWrapper';
-import { HydrationBoundary, dehydrate } from '@tanstack/react-query';
+import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
 import getQueryClient from '@/lib/react-query/getQueryClient';
 import prisma from '@/lib/prisma/prisma';
 import { getUserInfo } from '@/actions/useUserInfo';
 
 export default async function Page() {
-  const queryClient = getQueryClient();
+  // 以下どちらの実装でも良い
+  // const queryClient = getQueryClient();
+  const queryClient = new QueryClient();
 
   const queryKey = ['test'] as [string];
 
