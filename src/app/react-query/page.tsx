@@ -4,6 +4,7 @@ import { ReactQueryTestWrapper } from '../components/ReactQueryTestWrapper';
 import { HydrationBoundary, dehydrate } from '@tanstack/react-query';
 import getQueryClient from '@/lib/react-query/getQueryClient';
 import prisma from '@/lib/prisma/prisma';
+import { getUserInfo } from '@/actions/useUserInfo';
 
 export default async function Page() {
   const queryClient = getQueryClient();
@@ -11,25 +12,20 @@ export default async function Page() {
   const queryKey = ['test'] as [string];
 
   await queryClient.prefetchQuery({
-    queryKey,
+    queryKey: queryKey,
     queryFn: async () => {
-      const user = await prisma.user.findMany();
-      return user;
+      // 以下のどちらでも動作しますが、Server ActionsによるGETリクエストは想定されていないため予期せぬ挙動が発生する可能性がある
+      //  prismaの利用することを推奨します
+      // return await prisma.user.findMany();
+      return await getUserInfo();
     },
   });
 
-  // const [count, setCount] = useQState(['count'], 1);
-  // const onClick = () => {
-  //   setCount((prevState) => prevState + 1);
-  // };
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <div>
-        <ReactQueryTestWrapper initialQueryKey={queryKey} />
-        <div>
-          {/* <p>{count}</p>
-        <button onClick={onClick}>up count</button> */}
-        </div>
+        <ReactQueryTestWrapper />
+        <div></div>
         <Link href={'/'}>go to top</Link>
       </div>
     </HydrationBoundary>

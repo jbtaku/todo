@@ -1,29 +1,30 @@
-import { SetUserInfo, UserInfo, getUserInfo, setUserInfo } from '@/actions/useUserInfo';
-import prisma from '@/lib/prisma/prisma';
-import getQueryClient from '@/lib/react-query/getQueryClient';
-import { QueryClient, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+'use client';
 
-export const useUserInfo = (initialQueryKey: [string]) => {
+import { UserInfo, getUserInfo, setUserInfo } from '@/actions/useUserInfo';
+import prisma from '@/lib/prisma/prisma';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+
+export const useUserInfo = (key: string) => {
   const queryClient = useQueryClient();
-  const queryKey = initialQueryKey ?? ['userInfo'];
+  const queryKey = [key];
 
   const { data, isPending } = useQuery({
-    queryKey,
+    queryKey: queryKey,
     queryFn: async () => {
-      const user = await prisma.user.findMany();
-      return user;
+      // 以下のどちらでも動作しますが、Server ActionsによるGETリクエストは想定されていないため予期せぬ挙動が発生する可能性がある
+      //  prismaの利用することを推奨します
+      // return await prisma.user.findMany();
+      return await getUserInfo();
     },
-    // queryFn: async () => {
-    //   return await getUserInfo();
-    // },
   });
 
   console.log('useUserInfo data', data);
+  console.log('useUserInfo isPending', isPending);
 
   const mutation = useMutation({
     mutationFn: setUserInfo,
-    onMutate: (variables) => {
-      queryClient.cancelQueries({ queryKey });
+    onMutate: async (variables) => {
+      await queryClient.cancelQueries({ queryKey: queryKey });
 
       const optimisticUserInfo = {
         id: crypto.randomUUID(),
@@ -37,10 +38,11 @@ export const useUserInfo = (initialQueryKey: [string]) => {
 
       return { optimisticUserInfo };
     },
-    onSuccess: (result, variables, context) => {
+    onSuccess: (result, _, context) => {
       queryClient.setQueryData(queryKey, (old: UserInfo[]) =>
         old.map((userInfo) => (userInfo.name === context?.optimisticUserInfo.name ? result : userInfo))
       );
+      console.log('success');
     },
     onError: (error, _, context) => {
       queryClient.setQueryData(queryKey, (old: UserInfo[]) =>
@@ -54,5 +56,9 @@ export const useUserInfo = (initialQueryKey: [string]) => {
     retry: 3,
   });
 
-  return { userInfo: data, isPending, mutation };
+  return {
+    userInfo: data,
+    isPending,
+    mutation,
+  };
 };
