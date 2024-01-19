@@ -7,7 +7,7 @@ import Image from 'next/image';
 import { VscAccount } from 'react-icons/vsc';
 
 function Header() {
-  const { userInfo, isPending } = useUserInfo(['test']);
+  const { userInfo, isPending } = useUserInfo('test');
 
   return (
     <header className="flex">

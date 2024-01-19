@@ -4,19 +4,15 @@ import { useQState } from '@/hooks/useQState';
 import { useUserInfo } from '@/hooks/useUserInfo';
 import Link from 'next/link';
 
-export const ReactQueryTest = ({ queryKey }: { queryKey: [string] }) => {
-  const { userInfo, mutation } = useUserInfo(queryKey);
+export const ReactQueryTest = () => {
+  const { userInfo, isPending } = useUserInfo('test');
   const [qStateData] = useQState<string>(['qState'], 'qState test');
-
-  console.log('ReactQueryTest, userInfo', userInfo);
 
   return (
     <>
       <h2>
-        userInfo:{mutation.isPending && 'loading...'}
-        {!mutation.isPending && userInfo
-          ? userInfo.map((user: any, index: number) => <p key={index}>{user.name}</p>)
-          : null}
+        userInfo:{isPending && 'loading...'}
+        {!isPending && userInfo ? userInfo.map((user: any, index: number) => <p key={index}>{user.name}</p>) : null}
       </h2>
       <h2>qStateData:{qStateData}</h2>
       <div>
