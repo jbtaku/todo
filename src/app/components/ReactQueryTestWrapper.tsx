@@ -1,24 +1,25 @@
 'use client';
 
-import { ReactQueryTest } from './ReactQueryTest';
 import { useUserInfo } from '@/hooks/useUserInfo';
+import { ReactQueryTest } from './ReactQueryTest';
 
-export const ReactQueryTestWrapper = ({ initialQueryKey }: { initialQueryKey: [string] }) => {
-  const { mutation } = useUserInfo(initialQueryKey);
+export const ReactQueryTestWrapper = () => {
+  const { mutation } = useUserInfo('test');
 
-  const onClickRandomCreateUser = async () => {
+  const onClickRandomCreateUser = () => {
     const uuid = crypto.randomUUID();
+    const date = new Date();
 
     mutation.mutate({
       name: `test_wada_${uuid}`,
       email: `test_wada_${uuid}@gmail.com`,
-      emailVerified: new Date(),
+      emailVerified: date,
     });
   };
 
   return (
     <>
-      <ReactQueryTest queryKey={initialQueryKey} />
+      <ReactQueryTest />
       <div>
         <button onClick={onClickRandomCreateUser}>ユーザーランダム生成</button>
       </div>
